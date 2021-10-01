@@ -113,43 +113,63 @@ function curriedSum(numArgs) {
 // const total = curriedSum(4);
 // console.log(total(5)(30)(20)(1));
 
+// Function.prototype.curry = function (numArgs) {
+//     let args = [];
+//     let that = this;
+
+//     function _curriedFunc(arg) {
+//         args.push(arg);
+//         console.log(args)
+//         if (args.length === numArgs) {
+//             return that(args);
+//         } else {
+//             return _curriedFunc;
+//         }
+//     }
+//     return _curriedFunc;
+// }
+
 Function.prototype.curry = function (numArgs) {
     let args = [];
-    let that = this;
+    const that = this;
 
     function _curriedFunc(arg) {
         args.push(arg);
         console.log(args)
+        debugger
         if (args.length === numArgs) {
-            return that(args);
+            debugger
+            return that.apply(args);
         } else {
+            debugger
             return _curriedFunc;
         }
     }
     return _curriedFunc;
 }
 
-function sum(arr) {
+function sum() {
     let sum = 0;
     arr.forEach(el => sum += el);
     return sum;
 }
 
 function sentence(arr) {
+    debugger
     return arr.join(' ');
 }
 
 const calculator = sum.curry(3);
 // const first = calculator(1)(2);
 // console.log(first);
-// // console.log(first(3));
-// console.log(calculator(1));
-// console.log(calculator(2));
-// console.log(calculator(3));
+// console.log(first(3));
+console.log(calculator(1));
+console.log(calculator(2));
+console.log(calculator(3));
 
-const builder = sentence.curry(4);
+// const builder = sentence.curry(4);
 
-console.log(builder('Hi'));
-console.log(builder('how'));
-console.log(builder('are'));
-console.log(builder('you?'));
+// console.log(builder('Hi'));
+// console.log(builder('how'));
+// console.log(builder('are'));
+// console.log(builder('you?'));
