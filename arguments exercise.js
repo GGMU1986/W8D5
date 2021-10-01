@@ -139,7 +139,7 @@ Function.prototype.curry = function (numArgs) {
         debugger
         if (args.length === numArgs) {
             debugger
-            return that.apply(args);
+            return that.apply(null, args); //guessing that ['Hi' 'how' 'are' 'you'] becomes 'Hi' 'how' 'are' 'you'
         } else {
             debugger
             return _curriedFunc;
@@ -150,26 +150,27 @@ Function.prototype.curry = function (numArgs) {
 
 function sum() {
     let sum = 0;
-    arr.forEach(el => sum += el);
+    const args = Array.from(arguments);
+    args.forEach(el => sum += el);
     return sum;
 }
 
-function sentence(arr) {
-    debugger
+function sentence(...arr) { //before adding ..., somehow it was only accepting the first element in the args array
+    //debugger
     return arr.join(' ');
 }
 
-const calculator = sum.curry(3);
-// const first = calculator(1)(2);
-// console.log(first);
-// console.log(first(3));
-console.log(calculator(1));
-console.log(calculator(2));
-console.log(calculator(3));
+// const calculator = sum.curry(3);
+// // const first = calculator(1)(2);
+// // console.log(first);
+// // console.log(first(3));
+// console.log(calculator(1));
+// console.log(calculator(2));
+// console.log(calculator(3));
 
-// const builder = sentence.curry(4);
+const builder = sentence.curry(4);
 
-// console.log(builder('Hi'));
-// console.log(builder('how'));
-// console.log(builder('are'));
-// console.log(builder('you?'));
+console.log(builder('Hi'));
+console.log(builder('how'));
+console.log(builder('are'));
+console.log(builder('you?'));
